@@ -1,6 +1,9 @@
 package br.ufpb.dcx.dsc.apiYuGiOh.User.model;
 
+import br.ufpb.dcx.dsc.apiYuGiOh.Deck.model.Deck;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "tb_user")
@@ -18,6 +21,9 @@ public class User {
 
     @Column(name = "senha")
     private String senha;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private List<Deck> decks;
 
     public User() {
     }
@@ -52,5 +58,13 @@ public class User {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public List<Deck> getDecks() {
+        return decks;
+    }
+
+    public void setDecks(List<Deck> decks) {
+        this.decks = decks;
     }
 }
