@@ -1,5 +1,6 @@
 package br.ufpb.dcx.dsc.apiYuGiOh.Deck.model;
 
+import br.ufpb.dcx.dsc.apiYuGiOh.User.model.User;
 import jakarta.persistence.*;
 
 @Entity
@@ -12,6 +13,10 @@ public class Deck {
 
     @Column(name = "nome")
     private String nomeDeck;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Deck(){
     }
@@ -30,5 +35,13 @@ public class Deck {
 
     public void setNomeDeck(String nomeDeck) {
         this.nomeDeck = nomeDeck;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
