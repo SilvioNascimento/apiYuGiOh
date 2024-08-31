@@ -1,10 +1,12 @@
 package br.ufpb.dcx.dsc.apiYuGiOh.Deck.model;
 
 import br.ufpb.dcx.dsc.apiYuGiOh.User.model.User;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "tb_deck")
+@JsonIgnoreProperties({"user"})
 public class Deck {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
