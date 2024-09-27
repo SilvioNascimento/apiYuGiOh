@@ -13,6 +13,9 @@ public class Photo {
     @Column(name = "url")
     private String url;
 
+    @OneToOne(mappedBy = "photo")
+    private Card card;
+
     public Photo(){
     }
 

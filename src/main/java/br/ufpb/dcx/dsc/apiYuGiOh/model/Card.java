@@ -18,6 +18,10 @@ public abstract class Card {
     @Column(name = "descricao")
     private String descricao;
 
+    @OneToOne
+    @JoinColumn(name="photo_id")
+    private Photo photo;
+
     public Card(){
     }
 
@@ -43,5 +47,13 @@ public abstract class Card {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public Photo getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(Photo photo) {
+        this.photo = photo;
     }
 }
