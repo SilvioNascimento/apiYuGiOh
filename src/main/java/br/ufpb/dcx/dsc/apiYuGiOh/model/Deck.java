@@ -1,0 +1,49 @@
+package br.ufpb.dcx.dsc.apiYuGiOh.model;
+
+import br.ufpb.dcx.dsc.apiYuGiOh.model.User;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "tb_deck")
+@JsonIgnoreProperties({"user"})
+public class Deck {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "deck_id")
+    private Long id;
+
+    @Column(name = "nome")
+    private String nomeDeck;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public Deck(){
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNomeDeck() {
+        return nomeDeck;
+    }
+
+    public void setNomeDeck(String nomeDeck) {
+        this.nomeDeck = nomeDeck;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+}
