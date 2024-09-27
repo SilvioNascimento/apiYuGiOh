@@ -18,7 +18,10 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "senha")
+    @Column(name = "username", nullable = false, unique = true)
+    private String username;
+
+    @Column(name = "senha", nullable = false)
     private String senha;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
@@ -65,5 +68,13 @@ public class User {
 
     public void setDecks(List<Deck> decks) {
         this.decks = decks;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

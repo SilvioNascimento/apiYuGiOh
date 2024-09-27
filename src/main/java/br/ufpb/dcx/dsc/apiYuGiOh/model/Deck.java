@@ -4,6 +4,8 @@ import br.ufpb.dcx.dsc.apiYuGiOh.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "tb_deck")
 @JsonIgnoreProperties({"user"})
@@ -19,6 +21,12 @@ public class Deck {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @ManyToMany
+    @JoinTable(name = "deck_cards",
+    joinColumns = @JoinColumn(name = "deck_id"),
+    inverseJoinColumns = @JoinColumn(name = "card_id"))
+    private List<Card> cards;
 
     public Deck(){
     }
@@ -45,5 +53,13 @@ public class Deck {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public List<Card> getCards() {
+        return cards;
+    }
+
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
     }
 }

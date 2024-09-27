@@ -37,6 +37,7 @@ public class UserService {
             User toUpdate = userOpt.get();
             toUpdate.setNome(u.getNome());
             toUpdate.setEmail(u.getEmail());
+            toUpdate.setUsername(u.getUsername());
             toUpdate.setSenha(u.getSenha());
             toUpdate.setDecks(u.getDecks());
             return userRepository.save(toUpdate);
