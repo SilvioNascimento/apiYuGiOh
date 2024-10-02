@@ -5,6 +5,7 @@ import br.ufpb.dcx.dsc.apiYuGiOh.model.CardMonster;
 import br.ufpb.dcx.dsc.apiYuGiOh.model.CardSpell;
 import br.ufpb.dcx.dsc.apiYuGiOh.model.CardTrap;
 import br.ufpb.dcx.dsc.apiYuGiOh.repository.CardRepository;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class CardService {
     }
 
     public Card getCard(Long id) {
-        return cardRepository.getReferenceById(id);
+        return cardRepository.findById(id).orElseThrow(() -> new RuntimeException("Carta não encontrada"));
     }
 
     public List<Card> listCards() {

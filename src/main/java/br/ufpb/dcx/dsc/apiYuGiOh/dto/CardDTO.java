@@ -1,5 +1,21 @@
 package br.ufpb.dcx.dsc.apiYuGiOh.dto;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+
+
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "tipo"
+)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = CardMonsterDTO.class, name = "monster"),
+        @JsonSubTypes.Type(value = CardSpellDTO.class, name = "spell"),
+        @JsonSubTypes.Type(value = CardTrapDTO.class, name = "trap")
+})
+
 public abstract class CardDTO {
     private Long id;
     private String nome;
