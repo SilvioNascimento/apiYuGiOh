@@ -39,32 +39,42 @@ public class CardController {
     @GetMapping("/cards/{cardId}")
     public CardDTO getCard(@PathVariable Long cardId) {
         Card card = cardService.getCard(cardId);
+        System.out.println(card.toString());
         return convertToDTO(card);
     }
 
-    @PostMapping("/cards/monster")
+
+    @PostMapping("/cards")
     @ResponseStatus(HttpStatus.CREATED)
-    public CardMonsterDTO createMonsterCard(@RequestBody CardMonsterDTO cardMonsterDTO) {
-        Card card = convertToEntity(cardMonsterDTO);
+    public CardDTO createMonsterCard(@RequestBody CardDTO cardDTO) {
+        Card card = convertToEntity(cardDTO);
         Card saved = cardService.createCard(card);
-        return (CardMonsterDTO) convertToDTO(saved);
+        return convertToDTO(saved);
     }
 
-    @PostMapping("/cards/spell")
-    @ResponseStatus(HttpStatus.CREATED)
-    public CardSpellDTO createSpellCard(@RequestBody CardSpellDTO cardSpellDTO) {
-        Card card = convertToEntity(cardSpellDTO);
-        Card saved = cardService.createCard(card);
-        return (CardSpellDTO) convertToDTO(saved);
-    }
-
-    @PostMapping("/cards/trap")
-    @ResponseStatus(HttpStatus.CREATED)
-    public CardTrapDTO createTrapCard(@RequestBody CardTrapDTO cardTrapDTO) {
-        Card card = convertToEntity(cardTrapDTO);
-        Card saved = cardService.createCard(card);
-        return (CardTrapDTO) convertToDTO(saved);
-    }
+//    @PostMapping("/cards/monster")
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public CardMonsterDTO createMonsterCard(@RequestBody CardMonsterDTO cardMonsterDTO) {
+//        Card card = convertToEntity(cardMonsterDTO);
+//        Card saved = cardService.createCard(card);
+//        return (CardMonsterDTO) convertToDTO(saved);
+//    }
+//
+//    @PostMapping("/cards/spell")
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public CardSpellDTO createSpellCard(@RequestBody CardSpellDTO cardSpellDTO) {
+//        Card card = convertToEntity(cardSpellDTO);
+//        Card saved = cardService.createCard(card);
+//        return (CardSpellDTO) convertToDTO(saved);
+//    }
+//
+//    @PostMapping("/cards/trap")
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public CardTrapDTO createTrapCard(@RequestBody CardTrapDTO cardTrapDTO) {
+//        Card card = convertToEntity(cardTrapDTO);
+//        Card saved = cardService.createCard(card);
+//        return (CardTrapDTO) convertToDTO(saved);
+//    }
 
     @PutMapping("/cards/{cardId}")
     public CardDTO updateCard(@PathVariable Long cardId, @RequestBody CardDTO cardDTO) {
@@ -81,6 +91,7 @@ public class CardController {
 
     // Conversão entre entidades e DTOs
     private CardDTO convertToDTO(Card card) {
+        System.out.println("Card type: " + card.getClass().getSimpleName());
         if (card instanceof CardMonster) {
             return modelMapper.map(card, CardMonsterDTO.class);
         } else if (card instanceof CardSpell) {
