@@ -18,7 +18,7 @@ public class UserService {
 
     public User getUser(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User do id " + id +
-                " não encontrado!"));
+                " não foi encontrado!"));
     }
 
     public List<User> listUsers() {
@@ -30,7 +30,11 @@ public class UserService {
     }
 
     public void deleteUser(Long id) {
-        userRepository.deleteById(id);
+        Optional<User> userOpt = userRepository.findById(id);
+        if(userOpt.isPresent()) {
+            userRepository.deleteById(id);
+        }
+        throw new UserNotFoundException("User do id " + id + " não foi encontrado!");
     }
 
     public User updateUser(Long id, User u) {
@@ -44,7 +48,7 @@ public class UserService {
             toUpdate.setDecks(u.getDecks());
             return userRepository.save(toUpdate);
         }
-        throw new UserNotFoundException("User do id " + id + " não encontrado!");
+        throw new UserNotFoundException("User do id " + id + " não foi encontrado!");
     }
 
 
