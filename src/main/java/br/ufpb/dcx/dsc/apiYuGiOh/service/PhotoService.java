@@ -16,7 +16,7 @@ public class PhotoService {
     }
 
     public Photo getPhoto(Long id) {
-        return photoRepository.getReferenceById(id);
+        return photoRepository.findById(id).orElseThrow(() -> new RuntimeException("Photo não encontrada"));
     }
 
     public List<Photo> listPhotos() {
