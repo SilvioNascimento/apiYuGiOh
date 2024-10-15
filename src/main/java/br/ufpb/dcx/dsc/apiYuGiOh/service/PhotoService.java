@@ -30,7 +30,12 @@ public class PhotoService {
     }
 
     public void deletePhoto(Long id) {
-        photoRepository.deleteById(id);
+        Optional<Photo> photoOpt = photoRepository.findById(id);
+        if(photoOpt.isPresent()){
+            photoRepository.deleteById(id);
+        }
+
+        throw new PhotoNotFoundException("Photo do id " + id + " não foi encontrada para ser deletado!");
     }
 
     public Photo updatePhoto(Long id, Photo p) {
