@@ -2,7 +2,9 @@ package br.ufpb.dcx.dsc.apiYuGiOh.dto;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 
 @JsonTypeInfo(
@@ -18,7 +20,15 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 public abstract class CardDTO {
     private Long id;
+
+    @NotNull
+    @NotBlank
+    @NotEmpty
     private String nome;
+
+    @NotNull
+    @NotBlank
+    @NotEmpty
     private String descricao;
 
     public CardDTO(){}

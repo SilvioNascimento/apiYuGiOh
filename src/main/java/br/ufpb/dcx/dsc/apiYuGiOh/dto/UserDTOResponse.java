@@ -1,13 +1,32 @@
 package br.ufpb.dcx.dsc.apiYuGiOh.dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+
 import java.util.Objects;
 
 public class UserDTOResponse {
 
     private Long id;
+
+    @NotNull
+    @NotBlank
+    @NotEmpty
     private String nome;
+
+    @Email
     private String email;
+
+    @NotNull
+    @NotBlank
+    @NotEmpty
     private String username;
+
+    @NotNull
+    @NotBlank
+    @NotEmpty
     private String senha;
 
     public UserDTOResponse() {

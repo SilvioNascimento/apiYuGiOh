@@ -1,8 +1,16 @@
 package br.ufpb.dcx.dsc.apiYuGiOh.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+
 public class DeckDTO {
 
     private Long id;
+
+    @NotNull
+    @NotBlank
+    @NotEmpty
     private String nomeDeck;
 
     public DeckDTO(){

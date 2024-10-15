@@ -1,12 +1,20 @@
 package br.ufpb.dcx.dsc.apiYuGiOh.dto;
 
 import br.ufpb.dcx.dsc.apiYuGiOh.ENUM.TipoMonster;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 
 import java.util.List;
 
 public class CardMonsterDTO extends CardDTO{
+    @Min(value = 1)
+    @Max(value = 12)
     private int nivel;
+
+    @Min(value = 0)
     private int atk;
+
+    @Min(value = 0)
     private int def;
     private String atributo;
     private List<TipoMonster> tipoMonster;

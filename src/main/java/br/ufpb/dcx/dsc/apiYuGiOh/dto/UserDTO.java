@@ -1,9 +1,13 @@
 package br.ufpb.dcx.dsc.apiYuGiOh.dto;
 
+import jakarta.validation.constraints.Email;
+
 public class UserDTO {
 
     private Long id;
     private String nome;
+
+    @Email
     private String email;
     private String username;
     private String senha;
