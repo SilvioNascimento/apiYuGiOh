@@ -35,7 +35,12 @@ public class CardService {
     }
 
     public void deleteCard(Long id) {
-        cardRepository.deleteById(id);
+        Optional<Card> cardOpt = cardRepository.findById(id);
+        if(cardOpt.isPresent()){
+            cardRepository.deleteById(id);
+        }
+
+        throw new CardNotFoundException("Card do id " + id + " não foi encontrado para ser deletado!");
     }
 
     public Card updateCard(Long id, Card card) {
