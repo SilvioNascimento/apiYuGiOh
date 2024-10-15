@@ -40,6 +40,7 @@ public class PhotoService {
             toUpdate.setUrl(p.getUrl());
             return photoRepository.save(toUpdate);
         }
-        throw new PhotoNotFoundException("Photo do id " + id + " não foi encontrada!");
+        throw new PhotoNotFoundException("Photo do id " + id + " não foi encontrada para realizar " +
+                "uma alteração de dados da mesma!");
     }
 }
