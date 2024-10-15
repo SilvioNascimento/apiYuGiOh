@@ -16,7 +16,7 @@ public class DeckService {
     }
 
     public Deck getDeck(Long id) {
-        return deckRepository.getReferenceById(id);
+        return deckRepository.findById(id).orElseThrow(() -> new RuntimeException("Deck não encontrado"));
     }
 
     public List<Deck> listDecks() {
