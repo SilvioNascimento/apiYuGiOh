@@ -1,5 +1,6 @@
 package br.ufpb.dcx.dsc.apiYuGiOh.service;
 
+import br.ufpb.dcx.dsc.apiYuGiOh.exception.DeckNotFoundException;
 import br.ufpb.dcx.dsc.apiYuGiOh.model.Deck;
 import br.ufpb.dcx.dsc.apiYuGiOh.repository.DeckRepository;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,8 @@ public class DeckService {
     }
 
     public Deck getDeck(Long id) {
-        return deckRepository.findById(id).orElseThrow(() -> new RuntimeException("Deck não encontrado"));
+        return deckRepository.findById(id).orElseThrow(() -> new DeckNotFoundException("Deck do id" + id +
+                " não foi encontrado!"));
     }
 
     public List<Deck> listDecks() {
@@ -39,6 +41,6 @@ public class DeckService {
             toUpdate.setUser(d.getUser());
             return deckRepository.save(toUpdate);
         }
-        return null;
+        throw new DeckNotFoundException("Deck do id" + id + " não foi encontrado!");
     }
 }

@@ -1,5 +1,6 @@
 package br.ufpb.dcx.dsc.apiYuGiOh.service;
 
+import br.ufpb.dcx.dsc.apiYuGiOh.exception.PhotoNotFoundException;
 import br.ufpb.dcx.dsc.apiYuGiOh.model.Photo;
 import br.ufpb.dcx.dsc.apiYuGiOh.repository.PhotoRepository;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,8 @@ public class PhotoService {
     }
 
     public Photo getPhoto(Long id) {
-        return photoRepository.findById(id).orElseThrow(() -> new RuntimeException("Photo não encontrada"));
+        return photoRepository.findById(id).orElseThrow(() -> new PhotoNotFoundException("Photo do id " + id +
+                " não foi encontrada!"));
     }
 
     public List<Photo> listPhotos() {
@@ -38,6 +40,6 @@ public class PhotoService {
             toUpdate.setUrl(p.getUrl());
             return photoRepository.save(toUpdate);
         }
-        return null;
+        throw new PhotoNotFoundException("Photo do id " + id + " não foi encontrada!");
     }
 }

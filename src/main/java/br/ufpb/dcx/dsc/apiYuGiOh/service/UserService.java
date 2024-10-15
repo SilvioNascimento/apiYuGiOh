@@ -1,5 +1,6 @@
 package br.ufpb.dcx.dsc.apiYuGiOh.service;
 
+import br.ufpb.dcx.dsc.apiYuGiOh.exception.UserNotFoundException;
 import br.ufpb.dcx.dsc.apiYuGiOh.model.User;
 import br.ufpb.dcx.dsc.apiYuGiOh.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,8 @@ public class UserService {
     }
 
     public User getUser(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User não encontrado"));
+        return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User do id " + id +
+                " não encontrado!"));
     }
 
     public List<User> listUsers() {
@@ -42,7 +44,7 @@ public class UserService {
             toUpdate.setDecks(u.getDecks());
             return userRepository.save(toUpdate);
         }
-        return null;
+        throw new UserNotFoundException("User do id " + id + " não encontrado!");
     }
 
 

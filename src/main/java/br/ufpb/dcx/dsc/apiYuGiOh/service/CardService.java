@@ -1,5 +1,6 @@
 package br.ufpb.dcx.dsc.apiYuGiOh.service;
 
+import br.ufpb.dcx.dsc.apiYuGiOh.exception.CardNotFoundException;
 import br.ufpb.dcx.dsc.apiYuGiOh.model.Card;
 import br.ufpb.dcx.dsc.apiYuGiOh.model.CardMonster;
 import br.ufpb.dcx.dsc.apiYuGiOh.model.CardSpell;
@@ -21,7 +22,8 @@ public class CardService {
     }
 
     public Card getCard(Long id) {
-        return cardRepository.findById(id).orElseThrow(() -> new RuntimeException("Carta não encontrada"));
+        return cardRepository.findById(id).orElseThrow(() -> new CardNotFoundException("Card do id " + id +
+                " não foi encontrado!"));
     }
 
     public List<Card> listCards() {
@@ -62,6 +64,6 @@ public class CardService {
             }
             return cardRepository.save(toUpdate);
         }
-        return null;
+        throw new CardNotFoundException("Card do id " + id + " não foi encontrado!");
     }
 }
