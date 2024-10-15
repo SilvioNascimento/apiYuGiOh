@@ -48,7 +48,8 @@ public class UserService {
             toUpdate.setDecks(u.getDecks());
             return userRepository.save(toUpdate);
         }
-        throw new UserNotFoundException("User do id " + id + " não foi encontrado!");
+        throw new UserNotFoundException("User do id " + id + " não foi encontrado para realizar " +
+                "uma alteração de dados do mesmo!");
     }
 
 
