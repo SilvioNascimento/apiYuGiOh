@@ -9,8 +9,10 @@ import br.ufpb.dcx.dsc.apiYuGiOh.model.CardMonster;
 import br.ufpb.dcx.dsc.apiYuGiOh.model.CardSpell;
 import br.ufpb.dcx.dsc.apiYuGiOh.model.CardTrap;
 import br.ufpb.dcx.dsc.apiYuGiOh.service.CardService;
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +21,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
+@Validated
 public class CardController {
 
     private final ModelMapper modelMapper;
@@ -46,7 +49,7 @@ public class CardController {
 
     @PostMapping("/cards")
     @ResponseStatus(HttpStatus.CREATED)
-    public CardDTO createMonsterCard(@RequestBody CardDTO cardDTO) {
+    public CardDTO createMonsterCard(@Valid @RequestBody CardDTO cardDTO) {
         Card card = convertToEntity(cardDTO);
         Card saved = cardService.createCard(card);
         return convertToDTO(saved);
@@ -77,7 +80,7 @@ public class CardController {
 //    }
 
     @PutMapping("/cards/{cardId}")
-    public CardDTO updateCard(@PathVariable Long cardId, @RequestBody CardDTO cardDTO) {
+    public CardDTO updateCard(@PathVariable Long cardId, @Valid @RequestBody CardDTO cardDTO) {
         Card card = convertToEntity(cardDTO);
         Card updatedCard = cardService.updateCard(cardId, card);
         return convertToDTO(updatedCard);
