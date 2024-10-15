@@ -41,6 +41,7 @@ public class DeckService {
             toUpdate.setUser(d.getUser());
             return deckRepository.save(toUpdate);
         }
-        throw new DeckNotFoundException("Deck do id" + id + " não foi encontrado!");
+        throw new DeckNotFoundException("Deck do id" + id + " não foi encontrado para realizar " +
+                "uma alteração de dados do mesmo!");
     }
 }
