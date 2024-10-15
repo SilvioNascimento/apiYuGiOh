@@ -1,5 +1,6 @@
 package br.ufpb.dcx.dsc.apiYuGiOh.dto;
 
+import br.ufpb.dcx.dsc.apiYuGiOh.validation.EmailExistente;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -15,6 +16,7 @@ public class UserDTO {
     private String nome;
 
     @Email
+    @EmailExistente
     private String email;
 
     @NotNull
