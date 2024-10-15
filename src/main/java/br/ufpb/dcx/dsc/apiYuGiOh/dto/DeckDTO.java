@@ -1,5 +1,6 @@
 package br.ufpb.dcx.dsc.apiYuGiOh.dto;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -11,6 +12,7 @@ public class DeckDTO {
     @NotNull
     @NotBlank
     @NotEmpty
+    @JsonAlias({"nomedeck", "nome_deck"})
     private String nomeDeck;
 
     public DeckDTO(){
