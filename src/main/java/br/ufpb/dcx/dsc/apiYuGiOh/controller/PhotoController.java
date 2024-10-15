@@ -3,15 +3,18 @@ package br.ufpb.dcx.dsc.apiYuGiOh.controller;
 import br.ufpb.dcx.dsc.apiYuGiOh.dto.PhotoDTO;
 import br.ufpb.dcx.dsc.apiYuGiOh.model.Photo;
 import br.ufpb.dcx.dsc.apiYuGiOh.service.PhotoService;
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(name = "/api")
+@RequestMapping(value = "/api")
+@Validated
 public class PhotoController {
     private ModelMapper modelMapper;
     private final PhotoService photoService;
@@ -36,7 +39,7 @@ public class PhotoController {
     }
 
     @PostMapping("/photo")
-    public PhotoDTO createPhoto(@RequestBody PhotoDTO photoDTO) {
+    public PhotoDTO createPhoto(@Valid @RequestBody PhotoDTO photoDTO) {
         Photo p = convertToEntity(photoDTO);
         Photo photoCreated = photoService.savePhoto(p);
         return convertToDTO(photoCreated);
