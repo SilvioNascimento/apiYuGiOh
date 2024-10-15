@@ -47,7 +47,7 @@ public class PhotoController {
 
     @PutMapping("/photo/{photoId}")
     public PhotoDTO updatePhoto(@PathVariable Long photoId,
-                                @RequestBody PhotoDTO photoDTO) {
+                                @Valid @RequestBody PhotoDTO photoDTO) {
         Photo p = convertToEntity(photoDTO);
         Photo photoCreated = photoService.updatePhoto(photoId, p);
         return convertToDTO(photoCreated);
