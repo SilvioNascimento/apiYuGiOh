@@ -5,7 +5,9 @@ import br.ufpb.dcx.dsc.apiYuGiOh.dto.UserDTOResponse;
 import br.ufpb.dcx.dsc.apiYuGiOh.model.User;
 import br.ufpb.dcx.dsc.apiYuGiOh.service.DeckService;
 import br.ufpb.dcx.dsc.apiYuGiOh.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.modelmapper.ModelMapper;
 
@@ -13,7 +15,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(name = "/api")
+@RequestMapping(value = "/api")
+@Validated
 public class UserController {
     private ModelMapper modelMapper;
     private final UserService userService;
@@ -40,14 +43,14 @@ public class UserController {
 
     @PostMapping("/user")
     @ResponseStatus(HttpStatus.CREATED)
-    public UserDTOResponse createUser(@RequestBody UserDTO userDTO) {
+    public UserDTOResponse createUser(@Valid @RequestBody UserDTO userDTO) {
         User u = convertToEntity(userDTO);
         User saved = userService.createUser(u);
         return convertToDTO(saved);
     }
 
     @PutMapping("/user/{userId}")
-    public UserDTOResponse updateUser(@PathVariable Long userId, @RequestBody UserDTO userDTO) {
+    public UserDTOResponse updateUser(@PathVariable Long userId, @Valid @RequestBody UserDTO userDTO) {
         User u = convertToEntity(userDTO);
         User userUpdated = userService.updateUser(userId, u);
         return convertToDTO(userUpdated);
