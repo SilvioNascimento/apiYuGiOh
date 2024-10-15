@@ -64,6 +64,7 @@ public class CardService {
             }
             return cardRepository.save(toUpdate);
         }
-        throw new CardNotFoundException("Card do id " + id + " não foi encontrado!");
+        throw new CardNotFoundException("Card do id " + id + " não foi encontrado para realizar " +
+                "uma alteração de dados do mesmo!");
     }
 }
