@@ -35,7 +35,7 @@ public class DeckService {
             deckRepository.deleteById(id);
         }
 
-        throw new DeckNotFoundException("Deck do id" + id + " não foi encontrado para ser deletado!");
+        throw new DeckNotFoundException("Deck do id " + id + " não foi encontrado para ser deletado!");
     }
 
     public Deck updateDeck(Long id, Deck d) {
