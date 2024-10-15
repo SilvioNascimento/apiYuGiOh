@@ -1,6 +1,7 @@
 package br.ufpb.dcx.dsc.apiYuGiOh.dto;
 
 import br.ufpb.dcx.dsc.apiYuGiOh.ENUM.TipoMonster;
+import br.ufpb.dcx.dsc.apiYuGiOh.validation.TipoMonsterExistente;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 
@@ -17,6 +18,8 @@ public class CardMonsterDTO extends CardDTO{
     @Min(value = 0)
     private int def;
     private String atributo;
+
+    @TipoMonsterExistente(enumClass = TipoMonster.class)
     private List<TipoMonster> tipoMonster;
 
     public CardMonsterDTO() {
