@@ -18,7 +18,7 @@ public class UserService {
 
     public User getUser(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User do id " + id +
-                " não foi encontrado para ser deletado!"));
+                " não foi encontrado!"));
     }
 
     public List<User> listUsers() {
@@ -34,7 +34,7 @@ public class UserService {
         if(userOpt.isPresent()) {
             userRepository.deleteById(id);
         }
-        throw new UserNotFoundException("User do id " + id + " não foi encontrado!");
+        throw new UserNotFoundException("User do id " + id + " não foi encontrado para ser deletado!");
     }
 
     public User updateUser(Long id, User u) {
