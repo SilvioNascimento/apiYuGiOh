@@ -17,7 +17,7 @@ public class DeckService {
     }
 
     public Deck getDeck(Long id) {
-        return deckRepository.findById(id).orElseThrow(() -> new DeckNotFoundException("Deck do id" + id +
+        return deckRepository.findById(id).orElseThrow(() -> new DeckNotFoundException("Deck do id " + id +
                 " não foi encontrado!"));
     }
 
@@ -46,7 +46,7 @@ public class DeckService {
             toUpdate.setUser(d.getUser());
             return deckRepository.save(toUpdate);
         }
-        throw new DeckNotFoundException("Deck do id" + id + " não foi encontrado para realizar " +
+        throw new DeckNotFoundException("Deck do id " + id + " não foi encontrado para realizar " +
                 "uma alteração de dados do mesmo!");
     }
 }
