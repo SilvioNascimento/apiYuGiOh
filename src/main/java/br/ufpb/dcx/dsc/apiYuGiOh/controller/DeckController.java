@@ -56,7 +56,7 @@ public class DeckController {
     @DeleteMapping("/deck/{deckId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteDeck(@PathVariable Long deckId) {
-        deckService.deleteUser(deckId);
+        deckService.deleteDeck(deckId);
     }
 
     private DeckDTO convertToDTO(Deck deck) {
