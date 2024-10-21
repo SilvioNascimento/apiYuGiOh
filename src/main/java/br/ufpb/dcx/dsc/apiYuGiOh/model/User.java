@@ -3,6 +3,7 @@ package br.ufpb.dcx.dsc.apiYuGiOh.model;
 import br.ufpb.dcx.dsc.apiYuGiOh.ENUM.Role;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -26,7 +27,7 @@ public class User {
     @Column(name = "senha", nullable = false)
     private String senha;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Deck> decks;
 
     @Enumerated(EnumType.STRING)
@@ -34,6 +35,7 @@ public class User {
     private Role role;
 
     public User() {
+        this.decks = new ArrayList<>();
     }
 
     public Long getId() {
@@ -74,6 +76,16 @@ public class User {
 
     public void setDecks(List<Deck> decks) {
         this.decks = decks;
+    }
+
+    public void addDeck(Deck deck) {
+        this.decks.add(deck);
+        deck.setUser(this);
+    }
+
+    public void removeDeck(Deck deck) {
+        decks.remove(deck);
+        deck.setUser(null);
     }
 
     public String getUsername() {
