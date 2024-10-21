@@ -1,11 +1,9 @@
 package br.ufpb.dcx.dsc.apiYuGiOh.service;
 
 import br.ufpb.dcx.dsc.apiYuGiOh.exception.CardNotFoundException;
-import br.ufpb.dcx.dsc.apiYuGiOh.model.Card;
-import br.ufpb.dcx.dsc.apiYuGiOh.model.CardMonster;
-import br.ufpb.dcx.dsc.apiYuGiOh.model.CardSpell;
-import br.ufpb.dcx.dsc.apiYuGiOh.model.CardTrap;
+import br.ufpb.dcx.dsc.apiYuGiOh.model.*;
 import br.ufpb.dcx.dsc.apiYuGiOh.repository.CardRepository;
+import br.ufpb.dcx.dsc.apiYuGiOh.repository.PhotoRepository;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +14,11 @@ import java.util.Optional;
 public class CardService {
 
     private CardRepository cardRepository;
+    private PhotoRepository photoRepository;
 
-    public CardService(CardRepository cardRepository) {
+    public CardService(CardRepository cardRepository, PhotoRepository photoRepository) {
         this.cardRepository = cardRepository;
+        this.photoRepository = photoRepository;
     }
 
     public Card getCard(Long id) {
@@ -71,5 +71,33 @@ public class CardService {
         }
         throw new CardNotFoundException("Card do id " + id + " não foi encontrado para realizar " +
                 "uma alteração de dados do mesmo!");
+    }
+
+    public Card addPhotoInCard(Long idCard, Long idPhoto) {
+        Optional<Card> cardOpt = cardRepository.findById(idCard);
+        Optional<Photo> photoOpt = photoRepository.findById(idPhoto);
+        if(cardOpt.isPresent() && photoOpt.isPresent()) {
+            Card card = cardOpt.get();
+            card.setPhoto(photoOpt.get());
+            return cardRepository.save(card);
+        }
+        return null;
+    }
+
+    public Card removePhotoInCard(Long idCard, Long idPhoto) {
+        Optional<Card> cardOpt = cardRepository.findById(idCard);
+        Optional<Photo> photoOpt = photoRepository.findById(idPhoto);
+        if(cardOpt.isPresent() && photoOpt.isPresent()) {
+            Card card = cardOpt.get();
+            Photo photo = photoOpt.get();
+
+            if(card.getPhoto() != null && card.getPhoto().getId().equals(photo.getId())) {
+                card.setPhoto(null);
+                return cardRepository.save(card);
+            } else {
+                throw new RuntimeException("A foto não está associada a este card.");
+            }
+        }
+        return null;
     }
 }
