@@ -1,5 +1,6 @@
 package br.ufpb.dcx.dsc.apiYuGiOh.service;
 
+import br.ufpb.dcx.dsc.apiYuGiOh.ENUM.Role;
 import br.ufpb.dcx.dsc.apiYuGiOh.exception.UserAlreadyExistsException;
 import br.ufpb.dcx.dsc.apiYuGiOh.exception.UserNotFoundException;
 import br.ufpb.dcx.dsc.apiYuGiOh.model.User;
@@ -36,6 +37,7 @@ public class UserService {
                     " já existe.");
         }
         u.setSenha(bCryptPasswordEncoder.encode(u.getSenha()));
+        u.setRole(Role.USER);
         return userRepository.save(u);
     }
 
