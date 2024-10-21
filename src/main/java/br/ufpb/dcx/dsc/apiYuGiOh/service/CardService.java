@@ -1,6 +1,7 @@
 package br.ufpb.dcx.dsc.apiYuGiOh.service;
 
 import br.ufpb.dcx.dsc.apiYuGiOh.exception.CardNotFoundException;
+import br.ufpb.dcx.dsc.apiYuGiOh.exception.PhotoNotAssociatedWithCardException;
 import br.ufpb.dcx.dsc.apiYuGiOh.model.*;
 import br.ufpb.dcx.dsc.apiYuGiOh.repository.CardRepository;
 import br.ufpb.dcx.dsc.apiYuGiOh.repository.PhotoRepository;
@@ -38,6 +39,7 @@ public class CardService {
         Optional<Card> cardOpt = cardRepository.findById(id);
         if(cardOpt.isPresent()){
             cardRepository.deleteById(id);
+            return;
         }
 
         throw new CardNotFoundException("Card do id " + id + " não foi encontrado para ser deletado!");
@@ -78,7 +80,7 @@ public class CardService {
         Optional<Photo> photoOpt = photoRepository.findById(idPhoto);
         if(cardOpt.isPresent() && photoOpt.isPresent()) {
             Card card = cardOpt.get();
-            card.setPhoto(photoOpt.get());
+            card.setPhoto(photoOpt.get()); //Adicionar uma condição para não aceitar mais de uma Photo
             return cardRepository.save(card);
         }
         return null;
@@ -95,7 +97,8 @@ public class CardService {
                 card.setPhoto(null);
                 return cardRepository.save(card);
             } else {
-                throw new RuntimeException("A foto não está associada a este card.");
+                throw new PhotoNotAssociatedWithCardException("A Photo com id" + idPhoto +
+                        " não está associada ao Card com id" + idCard + ".");
             }
         }
         return null;

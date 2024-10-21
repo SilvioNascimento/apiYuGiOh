@@ -1,8 +1,10 @@
 package br.ufpb.dcx.dsc.apiYuGiOh.service;
 
+import br.ufpb.dcx.dsc.apiYuGiOh.exception.CardNotAssociatedWithDeckException;
 import br.ufpb.dcx.dsc.apiYuGiOh.exception.DeckAlreadyExistsException;
 import br.ufpb.dcx.dsc.apiYuGiOh.exception.DeckNotFoundException;
 import br.ufpb.dcx.dsc.apiYuGiOh.model.Card;
+import br.ufpb.dcx.dsc.apiYuGiOh.model.CardMonster;
 import br.ufpb.dcx.dsc.apiYuGiOh.model.Deck;
 import br.ufpb.dcx.dsc.apiYuGiOh.repository.CardRepository;
 import br.ufpb.dcx.dsc.apiYuGiOh.repository.DeckRepository;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
 
 @Service
 public class DeckService {
@@ -42,6 +45,7 @@ public class DeckService {
         Optional<Deck> deckOpt = deckRepository.findById(id);
         if(deckOpt.isPresent()){
             deckRepository.deleteById(id);
+            return;
         }
 
         throw new DeckNotFoundException("Deck do id " + id + " não foi encontrado para ser deletado!");
@@ -84,7 +88,7 @@ public class DeckService {
                 d.getCards().remove(c);
                 return deckRepository.save(d);
             } else {
-                throw new RuntimeException("O Card não está associado a este Deck.");
+                throw new CardNotAssociatedWithDeckException("O Card não está associado a este Deck.");
             }
         }
         return null;
