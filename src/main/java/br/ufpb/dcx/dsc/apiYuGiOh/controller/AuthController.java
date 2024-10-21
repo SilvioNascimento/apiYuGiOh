@@ -37,12 +37,10 @@ public class AuthController {
 
     private final UserService userService;
     private final ModelMapper modelMapper;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public AuthController( UserService userService, ModelMapper modelMapper, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public AuthController( UserService userService, ModelMapper modelMapper) {
         this.userService = userService;
         this.modelMapper = modelMapper;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @PostMapping("/login")
@@ -75,8 +73,7 @@ public class AuthController {
         user.setEmail(registerRequestDTO.getEmail());
         user.setUsername(registerRequestDTO.getUsername());
         user.setSenha(registerRequestDTO.getSenha());
-        user.setRoles(Set.of(Role.USER));
-        System.out.println(user.getRoles());
+        user.setRole(Role.USER);
 
         User saved = userService.createUser(user);
         return convertToDTO(saved);
