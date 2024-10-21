@@ -1,5 +1,6 @@
 package br.ufpb.dcx.dsc.apiYuGiOh.service;
 
+import br.ufpb.dcx.dsc.apiYuGiOh.exception.UserAlreadyExistsException;
 import br.ufpb.dcx.dsc.apiYuGiOh.exception.UserNotFoundException;
 import br.ufpb.dcx.dsc.apiYuGiOh.model.User;
 import br.ufpb.dcx.dsc.apiYuGiOh.repository.UserRepository;
@@ -30,6 +31,10 @@ public class UserService {
     }
 
     public User createUser(User u) {
+        if(userRepository.findByUsername(u.getUsername()) != null) {
+            throw new UserAlreadyExistsException("User com username " + u.getUsername() +
+                    " já existe.");
+        }
         u.setSenha(bCryptPasswordEncoder.encode(u.getSenha()));
         return userRepository.save(u);
     }
@@ -49,7 +54,9 @@ public class UserService {
             toUpdate.setNome(u.getNome());
             toUpdate.setEmail(u.getEmail());
             toUpdate.setUsername(u.getUsername());
-            toUpdate.setSenha(u.getSenha());
+            if (!u.getSenha().equals(toUpdate.getSenha())) {
+                toUpdate.setSenha(bCryptPasswordEncoder.encode(u.getSenha()));
+            }
             toUpdate.setDecks(u.getDecks());
             return userRepository.save(toUpdate);
         }
@@ -57,5 +64,12 @@ public class UserService {
                 "uma alteração de dados do mesmo!");
     }
 
+    public User getUserByUsername(String username) {
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new UserNotFoundException("Usuário " + username + " não foi encontrado!");
+        }
+        return user;
+    }
 
 }

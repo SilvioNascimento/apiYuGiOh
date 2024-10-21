@@ -1,7 +1,10 @@
 package br.ufpb.dcx.dsc.apiYuGiOh.service;
 
+import br.ufpb.dcx.dsc.apiYuGiOh.exception.DeckAlreadyExistsException;
 import br.ufpb.dcx.dsc.apiYuGiOh.exception.DeckNotFoundException;
+import br.ufpb.dcx.dsc.apiYuGiOh.model.Card;
 import br.ufpb.dcx.dsc.apiYuGiOh.model.Deck;
+import br.ufpb.dcx.dsc.apiYuGiOh.repository.CardRepository;
 import br.ufpb.dcx.dsc.apiYuGiOh.repository.DeckRepository;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +14,11 @@ import java.util.Optional;
 @Service
 public class DeckService {
     private DeckRepository deckRepository;
+    private CardRepository cardRepository;
 
-    public DeckService(DeckRepository deckRepository) {
+    public DeckService(DeckRepository deckRepository, CardRepository cardRepository) {
         this.deckRepository = deckRepository;
+        this.cardRepository = cardRepository;
     }
 
     public Deck getDeck(Long id) {
@@ -26,6 +31,10 @@ public class DeckService {
     }
 
     public Deck createDeck(Deck d) {
+        if(deckRepository.findByNomeDeck(d.getNomeDeck()) != null) {
+            throw new DeckAlreadyExistsException("Deck com o nome " + d.getNomeDeck() +
+                    " já existe.");
+        }
         return deckRepository.save(d);
     }
 
@@ -48,5 +57,36 @@ public class DeckService {
         }
         throw new DeckNotFoundException("Deck do id " + id + " não foi encontrado para realizar " +
                 "uma alteração de dados do mesmo!");
+    }
+
+    // Colocar uma exceção que informa que não pode adicionar a mesma Card mais de 3 vezes
+    // Colocar uma exceção que informa que não pode adicionar mais de 60 cards
+    public Deck addCardInDeck(Long idDeck, Long idCard) {
+        Optional<Deck> deckOpt = deckRepository.findById(idDeck);
+        Optional<Card> cardOpt = cardRepository.findById(idCard);
+        if(deckOpt.isPresent() && cardOpt.isPresent()) {
+            Deck d = deckOpt.get();
+            Card c = cardOpt.get();
+            d.getCards().add(c);
+            return deckRepository.save(d);
+        }
+        return null;
+    }
+
+    public Deck removeCardInDeck(Long idDeck, Long idCard) {
+        Optional<Deck> deckOpt = deckRepository.findById(idDeck);
+        Optional<Card> cardOpt = cardRepository.findById(idCard);
+        if(deckOpt.isPresent() && cardOpt.isPresent()) {
+            Deck d = deckOpt.get();
+            Card c = cardOpt.get();
+
+            if(d.getCards().contains(c)) {
+                d.getCards().remove(c);
+                return deckRepository.save(d);
+            } else {
+                throw new RuntimeException("O Card não está associado a este Deck.");
+            }
+        }
+        return null;
     }
 }
