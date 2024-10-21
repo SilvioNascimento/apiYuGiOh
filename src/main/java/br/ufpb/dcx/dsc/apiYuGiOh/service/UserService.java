@@ -3,7 +3,9 @@ package br.ufpb.dcx.dsc.apiYuGiOh.service;
 import br.ufpb.dcx.dsc.apiYuGiOh.ENUM.Role;
 import br.ufpb.dcx.dsc.apiYuGiOh.exception.UserAlreadyExistsException;
 import br.ufpb.dcx.dsc.apiYuGiOh.exception.UserNotFoundException;
+import br.ufpb.dcx.dsc.apiYuGiOh.model.Deck;
 import br.ufpb.dcx.dsc.apiYuGiOh.model.User;
+import br.ufpb.dcx.dsc.apiYuGiOh.repository.DeckRepository;
 import br.ufpb.dcx.dsc.apiYuGiOh.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,10 +17,13 @@ import java.util.Optional;
 public class UserService {
     private UserRepository userRepository;
 
+    private DeckRepository deckRepository;
+
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserService(UserRepository userRepository, DeckRepository deckRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
+        this.deckRepository = deckRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
@@ -45,6 +50,7 @@ public class UserService {
         Optional<User> userOpt = userRepository.findById(id);
         if(userOpt.isPresent()) {
             userRepository.deleteById(id);
+            return;
         }
         throw new UserNotFoundException("User do id " + id + " não foi encontrado para ser deletado!");
     }
@@ -64,6 +70,36 @@ public class UserService {
         }
         throw new UserNotFoundException("User do id " + id + " não foi encontrado para realizar " +
                 "uma alteração de dados do mesmo!");
+    }
+
+    // Criar uma exceção personalizada, onde informa que ou user
+    // ou deck não existe
+    public User addDeckInUser(Long idUser, Long idDeck) {
+        Optional<User> userOpt = userRepository.findById(idUser);
+        Optional<Deck> deckOpt = deckRepository.findById(idDeck);
+        if (userOpt.isPresent() && deckOpt.isPresent()) {
+            User user = userOpt.get();
+            Deck deck = deckOpt.get();
+
+            user.addDeck(deck);
+            return userRepository.save(user);
+        }
+        return null;
+    }
+
+    // Criar uma exceção personalizada, onde informa que ou user
+    // ou deck não existe
+    public User removeDeckInUser(Long idUser, Long idDeck) {
+        Optional<User> userOpt = userRepository.findById(idUser);
+        Optional<Deck> deckOpt = deckRepository.findById(idDeck);
+        if (userOpt.isPresent() && deckOpt.isPresent()) {
+            User user = userOpt.get();
+            Deck deck = deckOpt.get();
+
+            user.removeDeck(deck);
+            return userRepository.save(user);
+        }
+        return null;
     }
 
     public User getUserByUsername(String username) {
