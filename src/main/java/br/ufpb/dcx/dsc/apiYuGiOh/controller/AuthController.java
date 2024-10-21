@@ -74,7 +74,7 @@ public class AuthController {
         user.setNome(registerRequestDTO.getNome());
         user.setEmail(registerRequestDTO.getEmail());
         user.setUsername(registerRequestDTO.getUsername());
-        user.setSenha(bCryptPasswordEncoder.encode(registerRequestDTO.getSenha()));
+        user.setSenha(registerRequestDTO.getSenha());
         user.setRoles(Set.of(Role.USER));
         System.out.println(user.getRoles());
 
