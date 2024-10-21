@@ -16,6 +16,21 @@ import java.util.stream.Collectors;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler({
+            CardNotAssociatedWithDeckException.class,
+            PhotoNotAssociatedWithCardException.class
+    })
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleAssociationExceptions(RuntimeException ex) {
+        return new ErrorResponse
+                .Builder()
+                .timestamp(LocalDateTime.now())
+                .code(HttpStatus.BAD_REQUEST.value())
+                .status(HttpStatus.BAD_REQUEST.name())
+                .errors(List.of(ex.getMessage()))
+                .build();
+    }
+
+    @ExceptionHandler({
             UserAlreadyExistsException.class,
             PhotoAlreadyExistsException.class,
             DeckAlreadyExistsException.class
