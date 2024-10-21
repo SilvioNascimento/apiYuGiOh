@@ -1,6 +1,8 @@
 package br.ufpb.dcx.dsc.apiYuGiOh.service;
 
+import br.ufpb.dcx.dsc.apiYuGiOh.exception.PhotoAlreadyExistsException;
 import br.ufpb.dcx.dsc.apiYuGiOh.exception.PhotoNotFoundException;
+import br.ufpb.dcx.dsc.apiYuGiOh.exception.UserAlreadyExistsException;
 import br.ufpb.dcx.dsc.apiYuGiOh.model.Photo;
 import br.ufpb.dcx.dsc.apiYuGiOh.repository.PhotoRepository;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,10 @@ public class PhotoService {
     }
 
     public Photo savePhoto(Photo p) {
+        if(photoRepository.findByUrl(p.getUrl()) != null) {
+            throw new PhotoAlreadyExistsException("Photo com URL " + p.getUrl() +
+                    " já existe.");
+        }
         return photoRepository.save(p);
     }
 
