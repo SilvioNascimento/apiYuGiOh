@@ -54,7 +54,7 @@ public class DeckController {
         return convertToDTO(updateDeck);
     }
 
-    @PutMapping("/deck/{deckId}/card/{cardId}")
+    @PutMapping("/deck/{deckId}/card/{cardId}/add")
     public DeckDTO addCardInDeck(@PathVariable Long deckId, @PathVariable Long cardId) {
         return convertToDTO(deckService.addCardInDeck(deckId, cardId));
     }

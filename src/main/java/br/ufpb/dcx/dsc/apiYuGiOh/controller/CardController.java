@@ -86,7 +86,7 @@ public class CardController {
         return convertToDTO(updatedCard);
     }
 
-    @PutMapping("cards/{cardId}/photo/{photoId}")
+    @PutMapping("cards/{cardId}/photo/{photoId}/add")
     public CardDTO addPhotoInCard(@PathVariable Long cardId, @PathVariable Long photoId){
         return convertToDTO(cardService.addPhotoInCard(cardId, photoId));
     }
