@@ -1,9 +1,12 @@
 package br.ufpb.dcx.dsc.apiYuGiOh.dto;
 
+import br.ufpb.dcx.dsc.apiYuGiOh.model.Card;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+
+import java.util.List;
 
 public class DeckDTO {
 
@@ -14,6 +17,8 @@ public class DeckDTO {
     @NotEmpty
     @JsonAlias({"nomedeck", "nome_deck"})
     private String nomeDeck;
+
+    private List<Card> cards;
 
     public DeckDTO(){
     }
@@ -32,5 +37,13 @@ public class DeckDTO {
 
     public void setNomeDeck(String nomeDeck) {
         this.nomeDeck = nomeDeck;
+    }
+
+    public List<Card> getCards() {
+        return cards;
+    }
+
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
     }
 }
