@@ -5,6 +5,7 @@ import br.ufpb.dcx.dsc.apiYuGiOh.ENUM.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -31,6 +32,41 @@ public class SecurityConfig{
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/api/login", "/api/change-password", "/api/register", "/h2-ui/**").permitAll()
+
+                        //EndPoints de User
+                        //Permitir apenas ADMIN acessar as rotas POST, PUT, DELETE e GET
+                        .requestMatchers(HttpMethod.GET, "/api/user/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/user/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/user/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/user/**").hasRole("ADMIN")
+
+                        //EndPoints de Photo
+                        //Permitir apenas ADMIN acessar as rotas POST, PUT, DELETE e GET
+                        .requestMatchers(HttpMethod.GET, "/api/photo/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/photo/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/photo/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/photo/**").hasRole("ADMIN")
+
+                        //Endpoints de Card
+                        //Permitir que tanto USER quanto ADMIN possam acessar a rota GET
+                        .requestMatchers(HttpMethod.GET, "/api/cards/**").hasAnyRole("USER", "ADMIN")
+                        // Permitir apenas ADMIN acessar as rotas POST, PUT, DELETE
+                        .requestMatchers(HttpMethod.POST, "/api/cards/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/cards/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/cards/{cardId}/photo/{photoId}/remove").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/cards/{cardId}/photo/{photoId}/add").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/cards/**").hasRole("ADMIN")
+
+                        //Endpoints de Deck
+                        //Permitir que tanto USER quanto ADMIN possam acessar a rota GET, POST e PUTs específicos
+                        .requestMatchers(HttpMethod.GET, "/api/deck/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/deck/{deckId}/card/{cardId}/add").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/deck/{deckId}/card/{cardId}/remove").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/deck/**").hasAnyRole("USER", "ADMIN")
+                        // Permitir apenas ADMIN acessar as rotas PUT, DELETE
+                        .requestMatchers(HttpMethod.PUT, "/api/deck/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/deck/**").hasRole("ADMIN")
+
                         .anyRequest().authenticated())
 
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
