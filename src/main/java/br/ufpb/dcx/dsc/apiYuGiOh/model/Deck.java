@@ -4,6 +4,7 @@ import br.ufpb.dcx.dsc.apiYuGiOh.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,6 +30,11 @@ public class Deck {
     private List<Card> cards;
 
     public Deck(){
+        this.cards = new ArrayList<>();
+    }
+
+    public Deck(String nomeDeck) {
+        this.nomeDeck = nomeDeck;
     }
 
     public Long getId() {
