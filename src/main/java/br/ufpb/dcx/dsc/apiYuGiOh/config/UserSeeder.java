@@ -27,7 +27,7 @@ public class UserSeeder {
             user.setEmail("user@gmail.com");
             user.setUsername("user");
             user.setSenha(passwordEncoder.encode("user123"));
-            user.setRoles(Set.of(Role.USER));
+            user.setRole(Role.USER);
             userRepository.save(user);
         }
     }

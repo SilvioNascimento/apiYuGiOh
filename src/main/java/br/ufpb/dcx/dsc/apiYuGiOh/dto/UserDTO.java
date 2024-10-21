@@ -1,10 +1,13 @@
 package br.ufpb.dcx.dsc.apiYuGiOh.dto;
 
+import br.ufpb.dcx.dsc.apiYuGiOh.ENUM.Role;
 import br.ufpb.dcx.dsc.apiYuGiOh.validation.EmailExistente;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+
+import java.util.Set;
 
 public class UserDTO {
 
@@ -28,6 +31,8 @@ public class UserDTO {
     @NotBlank
     @NotEmpty
     private String senha;
+
+    private Role role;
 
     public UserDTO() {
     }
@@ -70,5 +75,13 @@ public class UserDTO {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

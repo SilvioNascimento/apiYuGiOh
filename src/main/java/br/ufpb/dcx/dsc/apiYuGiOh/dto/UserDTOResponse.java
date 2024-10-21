@@ -1,5 +1,6 @@
 package br.ufpb.dcx.dsc.apiYuGiOh.dto;
 
+import br.ufpb.dcx.dsc.apiYuGiOh.ENUM.Role;
 import br.ufpb.dcx.dsc.apiYuGiOh.validation.EmailExistente;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -7,6 +8,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.Objects;
+import java.util.Set;
 
 public class UserDTOResponse {
 
@@ -26,10 +28,7 @@ public class UserDTOResponse {
     @NotEmpty
     private String username;
 
-    @NotNull
-    @NotBlank
-    @NotEmpty
-    private String senha;
+    private Role role;
 
     public UserDTOResponse() {
     }
@@ -66,12 +65,12 @@ public class UserDTOResponse {
         this.username = username;
     }
 
-    public String getSenha() {
-        return senha;
+    public Role getRole() {
+        return role;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override
@@ -79,12 +78,12 @@ public class UserDTOResponse {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserDTOResponse that = (UserDTOResponse) o;
-        return Objects.equals(id, that.id) && Objects.equals(email, that.email) && Objects.equals(username, that.username) && Objects.equals(senha, that.senha);
+        return Objects.equals(id, that.id) && Objects.equals(email, that.email) && Objects.equals(username, that.username);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, username, senha);
+        return Objects.hash(id, email, username);
     }
 
     @Override
@@ -94,7 +93,7 @@ public class UserDTOResponse {
                 ", nome='" + nome + '\'' +
                 ", email='" + email + '\'' +
                 ", username='" + username + '\'' +
-                ", senha='" + senha + '\'' +
+                ", role=" + role +
                 '}';
     }
 }
