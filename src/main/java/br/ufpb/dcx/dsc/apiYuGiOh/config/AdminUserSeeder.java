@@ -27,7 +27,7 @@ public class AdminUserSeeder {
             admin.setEmail("admin@gmail.com");
             admin.setUsername("admin");
             admin.setSenha(passwordEncoder.encode("admin123"));
-            admin.setRoles(Set.of(Role.ADMIN));
+            admin.setRole(Role.ADMIN);
             userRepository.save(admin);
         }
     }
