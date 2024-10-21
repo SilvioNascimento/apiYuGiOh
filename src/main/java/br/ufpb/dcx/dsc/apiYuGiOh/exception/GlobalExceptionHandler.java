@@ -16,6 +16,22 @@ import java.util.stream.Collectors;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler({
+            UserAlreadyExistsException.class,
+            PhotoAlreadyExistsException.class,
+            DeckAlreadyExistsException.class
+    })
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorResponse handleUserAlreadyExistsException(RuntimeException ex) {
+        return new ErrorResponse
+                .Builder()
+                .timestamp(LocalDateTime.now())
+                .code(HttpStatus.CONFLICT.value())
+                .status(HttpStatus.CONFLICT.name())
+                .errors(List.of(ex.getMessage()))
+                .build();
+    }
+
+    @ExceptionHandler({
             CardNotFoundException.class,
             DeckNotFoundException.class,
             PhotoNotFoundException.class,
