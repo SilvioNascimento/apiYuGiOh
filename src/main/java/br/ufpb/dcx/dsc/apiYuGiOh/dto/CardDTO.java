@@ -1,5 +1,6 @@
 package br.ufpb.dcx.dsc.apiYuGiOh.dto;
 
+import br.ufpb.dcx.dsc.apiYuGiOh.model.Photo;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import jakarta.validation.constraints.NotBlank;
@@ -31,6 +32,8 @@ public abstract class CardDTO {
     @NotEmpty
     private String descricao;
 
+    private Photo photo;
+
     public CardDTO(){}
 
     public Long getId() {
@@ -55,5 +58,13 @@ public abstract class CardDTO {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public Photo getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(Photo photo) {
+        this.photo = photo;
     }
 }
