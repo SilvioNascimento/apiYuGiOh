@@ -6,6 +6,7 @@ import br.ufpb.dcx.dsc.apiYuGiOh.service.DeckService;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.parameters.P;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,6 +52,16 @@ public class DeckController {
         Deck deck = convertToEntity(deckDTO);
         Deck updateDeck = deckService.updateDeck(deckId, deck);
         return convertToDTO(updateDeck);
+    }
+
+    @PutMapping("/deck/{deckId}/card/{cardId}")
+    public DeckDTO addCardInDeck(@PathVariable Long deckId, @PathVariable Long cardId) {
+        return convertToDTO(deckService.addCardInDeck(deckId, cardId));
+    }
+
+    @PutMapping("/deck/{deckId}/card/{cardId}/remove")
+    public DeckDTO removeCardInDeck(@PathVariable Long deckId, @PathVariable Long cardId) {
+        return convertToDTO(deckService.removeCardInDeck(deckId, cardId));
     }
 
     @DeleteMapping("/deck/{deckId}")
