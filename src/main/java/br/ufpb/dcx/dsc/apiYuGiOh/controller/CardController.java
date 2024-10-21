@@ -86,6 +86,16 @@ public class CardController {
         return convertToDTO(updatedCard);
     }
 
+    @PutMapping("cards/{cardId}/photo/{photoId}")
+    public CardDTO addPhotoInCard(@PathVariable Long cardId, @PathVariable Long photoId){
+        return convertToDTO(cardService.addPhotoInCard(cardId, photoId));
+    }
+
+    @PutMapping("cards/{cardId}/photo/{photoId}/remove")
+    public CardDTO removePhotoInCard(@PathVariable Long cardId, @PathVariable Long photoId){
+        return convertToDTO(cardService.removePhotoInCard(cardId, photoId));
+    }
+
     @DeleteMapping("/cards/{cardId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCard(@PathVariable Long cardId) {
