@@ -1,12 +1,14 @@
 package br.ufpb.dcx.dsc.apiYuGiOh.dto;
 
 import br.ufpb.dcx.dsc.apiYuGiOh.ENUM.Role;
+import br.ufpb.dcx.dsc.apiYuGiOh.model.Deck;
 import br.ufpb.dcx.dsc.apiYuGiOh.validation.EmailExistente;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -27,6 +29,8 @@ public class UserDTOResponse {
     @NotBlank
     @NotEmpty
     private String username;
+
+    private List<Deck> decks;
 
     private Role role;
 
@@ -73,6 +77,14 @@ public class UserDTOResponse {
         this.role = role;
     }
 
+    public List<Deck> getDecks() {
+        return decks;
+    }
+
+    public void setDecks(List<Deck> decks) {
+        this.decks = decks;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -93,6 +105,7 @@ public class UserDTOResponse {
                 ", nome='" + nome + '\'' +
                 ", email='" + email + '\'' +
                 ", username='" + username + '\'' +
+                ", decks=" + decks +
                 ", role=" + role +
                 '}';
     }
