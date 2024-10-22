@@ -23,6 +23,7 @@ public class CardMonster extends Card{
 
     @ElementCollection(fetch = FetchType.EAGER)  // FetchType.EAGER para carregar a lista junto com a entidade principal
     @Enumerated(EnumType.STRING)  // Armazena o nome da enumeração como string no banco de dados
+    @Column(name = "tipo_monster")
     private List<TipoMonster> tipoMonster;
 
     public CardMonster(){
