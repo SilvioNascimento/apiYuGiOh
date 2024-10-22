@@ -56,6 +56,16 @@ public class UserController {
         return convertToDTO(userUpdated);
     }
 
+    @PutMapping("/user/{userId}/deck/{deckId}/add")
+    public UserDTOResponse addDeckInUser(@PathVariable Long userId, @PathVariable Long deckId) {
+        return convertToDTO(userService.addDeckInUser(userId, deckId));
+    }
+
+    @PutMapping("/user/{userId}/deck/{deckId}/remove")
+    public UserDTOResponse removeDeckInUser(@PathVariable Long userId, @PathVariable Long deckId) {
+        return convertToDTO(userService.removeDeckInUser(userId, deckId));
+    }
+
     @DeleteMapping("/user/{userId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteUser(@PathVariable Long userId) {
