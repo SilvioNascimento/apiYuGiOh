@@ -1,26 +1,27 @@
-# Copie o arquivo pom.xml e as dependências do Maven
-COPY pom.xml .
+# Etapa 1: Imagem base para compilar o projeto
+FROM maven:3.8.7-eclipse-temurin-17 AS build
 
-# Baixe as dependências do Maven
-RUN mvn dependency:go-offline
-
-# Copie o código-fonte da aplicação
-COPY src ./src
-
-# Compile a aplicação
-RUN mvn clean package -DskipTests
-
-# Efetivamente montando nossa imagem aqui com o jar gerado
-FROM maven:3-eclipse-temurin-21-alpine
-
-# Defina o diretório de trabalho dentro do container
+# Definir o diretório de trabalho no container
 WORKDIR /app
 
-# Copie o arquivo JAR da aplicação do estágio de build
-COPY --from=build /app/target/apiYuGiOh-0.0.1-SNAPSHOT.jar app.jar
+# Copiar o arquivo pom.xml e baixar as dependências sem copiar o código-fonte
+COPY pom.xml .
+RUN mvn dependency:go-offline
 
-# Exponha a porta que a aplicação irá rodar
-EXPOSE 8080
+# Agora, copiar todo o código-fonte do projeto para o container
+COPY . .
 
-# Defina o comando para rodar a aplicação
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Compilar o projeto e gerar o jar
+RUN mvn clean package -DskipTests
+
+# Etapa 2: Imagem base para rodar a aplicação
+FROM eclipse-temurin:17-jre-alpine
+
+# Definir o diretório de trabalho
+WORKDIR /app
+
+# Copiar o jar gerado na etapa de build para a imagem final
+COPY --from=build /app/target/apiYuGiOh-0.0.1-SNAPSHOT.jar /app/apiYuGiOh.jar
+
+# Definir o comando padrão para rodar a aplicação
+ENTRYPOINT ["java", "-jar", "/app/apiYuGiOh.jar"]
