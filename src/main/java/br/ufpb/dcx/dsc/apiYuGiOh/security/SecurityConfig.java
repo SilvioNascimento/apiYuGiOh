@@ -61,14 +61,13 @@ public class SecurityConfig{
                         .requestMatchers(HttpMethod.DELETE, "/api/cards/**").hasRole("ADMIN")
 
                         //Endpoints de Deck
-                        //Permitir que tanto USER quanto ADMIN possam acessar a rota GET, POST e PUTs específicos
+                        //Permitir que tanto USER quanto ADMIN possam acessar a rota GET, POST, PUTs e Delete
                         .requestMatchers(HttpMethod.GET, "/api/deck/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/deck/{deckId}/card/{cardId}/add").hasAnyRole("USER", "ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/deck/{deckId}/card/{cardId}/remove").hasAnyRole("USER", "ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/deck/**").hasAnyRole("USER", "ADMIN")
-                        // Permitir apenas ADMIN acessar as rotas PUT, DELETE
-                        .requestMatchers(HttpMethod.PUT, "/api/deck/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/deck/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/deck/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/deck/**").hasAnyRole("USER", "ADMIN")
 
                         .anyRequest().authenticated())
 
