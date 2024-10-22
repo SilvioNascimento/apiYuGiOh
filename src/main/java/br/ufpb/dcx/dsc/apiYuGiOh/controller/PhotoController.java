@@ -39,6 +39,7 @@ public class PhotoController {
     }
 
     @PostMapping("/photo")
+    @ResponseStatus(HttpStatus.CREATED)
     public PhotoDTO createPhoto(@Valid @RequestBody PhotoDTO photoDTO) {
         Photo p = convertToEntity(photoDTO);
         Photo photoCreated = photoService.savePhoto(p);
