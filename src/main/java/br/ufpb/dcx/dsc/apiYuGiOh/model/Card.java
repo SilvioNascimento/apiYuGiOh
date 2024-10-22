@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 public abstract class Card {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "card_id")
     private Long id;
 
