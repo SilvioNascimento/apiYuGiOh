@@ -19,6 +19,10 @@ public class Photo {
     public Photo(){
     }
 
+    public Photo(String url) {
+        this.url = url;
+    }
+
     public Long getId() {
         return id;
     }
