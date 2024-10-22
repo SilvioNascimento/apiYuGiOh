@@ -1,5 +1,5 @@
 # Etapa 1: Imagem base para compilar o projeto
-FROM maven:3.8.7-eclipse-temurin-17 AS build
+FROM maven:3.8.7-eclipse-temurin-21 AS build
 
 # Definir o diretório de trabalho no container
 WORKDIR /app
@@ -15,7 +15,7 @@ COPY . .
 RUN mvn clean package -DskipTests
 
 # Etapa 2: Imagem base para rodar a aplicação
-FROM eclipse-temurin:17-jre-alpine
+FROM eclipse-temurin:21-jre-alpine
 
 # Definir o diretório de trabalho
 WORKDIR /app
