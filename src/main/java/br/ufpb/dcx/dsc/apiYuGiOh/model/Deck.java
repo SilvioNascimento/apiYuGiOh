@@ -12,7 +12,7 @@ import java.util.List;
 @JsonIgnoreProperties({"user"})
 public class Deck {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "deck_id")
     private Long id;
 
