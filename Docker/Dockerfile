@@ -23,5 +23,8 @@ WORKDIR /app
 # Copiar o jar gerado na etapa de build para a imagem final
 COPY --from=build /app/target/apiYuGiOh-0.0.1-SNAPSHOT.jar /app/apiYuGiOh.jar
 
+# Exponha a porta que a aplicação irá rodar
+EXPOSE 8080
+
 # Definir o comando padrão para rodar a aplicação
 ENTRYPOINT ["java", "-jar", "/app/apiYuGiOh.jar"]
