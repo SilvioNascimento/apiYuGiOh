@@ -27,7 +27,7 @@ public class User {
     @Column(name = "senha", nullable = false)
     private String senha;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Deck> decks;
 
     @Enumerated(EnumType.STRING)
