@@ -34,6 +34,9 @@ public class SecurityConfig{
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/api/login", "/api/change-password", "/api/register", "/h2-ui/**").permitAll()
 
                         //EndPoints de User
+                        //Permitir tanto ADMIN quanto USER possam acessar as rotas PUT's específicas
+                        .requestMatchers(HttpMethod.PUT, "/user/{userId}/deck/{deckId}/add").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/user/{userId}/deck/{deckId}/remove").hasAnyRole("USER", "ADMIN")
                         //Permitir apenas ADMIN acessar as rotas POST, PUT, DELETE e GET
                         .requestMatchers(HttpMethod.GET, "/api/user/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/user/**").hasRole("ADMIN")
