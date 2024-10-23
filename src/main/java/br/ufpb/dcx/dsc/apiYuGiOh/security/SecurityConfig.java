@@ -31,7 +31,7 @@ public class SecurityConfig{
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/api/login", "/api/change-password", "/api/register", "/h2-ui/**").permitAll()
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/", "/error","/api/login", "/api/change-password", "/api/register", "/h2-ui/**").permitAll()
 
                         //EndPoints de User
                         //Permitir tanto ADMIN quanto USER possam acessar as rotas PUT's específicas
