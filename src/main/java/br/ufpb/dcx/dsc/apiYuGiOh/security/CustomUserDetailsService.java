@@ -29,9 +29,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
                 user.getSenha(),
-                new ArrayList<>( // Criar uma lista com o único role
-                        List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()))
-                )
+                new ArrayList<>(List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().name())))
         );
+
     }
 }
