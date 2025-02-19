@@ -21,6 +21,11 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 @EnableWebSecurity
 public class SecurityConfig{
 
+    private static final String[] WHITE_LIST_URL = { "/api/v1/auth/**", "/v2/api-docs", "/v3/api-docs",
+            "/v3/api-docs/**", "/swagger-resources", "/swagger-resources/**", "/configuration/ui",
+            "/configuration/security", "/swagger-ui/**", "/webjars/**", "/swagger-ui.html", "/api/auth/**",
+            "/api/test/**",  "/", "/error","/api/login", "/api/change-password", "/api/register", "/h2-ui/**"};
+
     @Autowired
     private JwtAuthenticationFilter jwtAuthenticationFilter;
 
@@ -31,7 +36,7 @@ public class SecurityConfig{
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/", "/error","/api/login", "/api/change-password", "/api/register", "/h2-ui/**").permitAll()
+                .authorizeHttpRequests(auth -> auth.requestMatchers(WHITE_LIST_URL).permitAll()
 
                         //EndPoints de User
                         //Permitir tanto ADMIN quanto USER possam acessar as rotas PUT's específicas
