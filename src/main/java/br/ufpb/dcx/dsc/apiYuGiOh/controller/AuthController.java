@@ -4,7 +4,6 @@ import br.ufpb.dcx.dsc.apiYuGiOh.ENUM.Role;
 import br.ufpb.dcx.dsc.apiYuGiOh.dto.*;
 import br.ufpb.dcx.dsc.apiYuGiOh.exception.UserNotFoundException;
 import br.ufpb.dcx.dsc.apiYuGiOh.model.User;
-import br.ufpb.dcx.dsc.apiYuGiOh.repository.UserRepository;
 import br.ufpb.dcx.dsc.apiYuGiOh.security.JwtUtil;
 import br.ufpb.dcx.dsc.apiYuGiOh.service.UserService;
 import jakarta.validation.Valid;
@@ -14,12 +13,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.modelmapper.ModelMapper;
-
-import java.util.Set;
 
 @RestController
 @RequestMapping(path = "/api")
@@ -62,7 +58,7 @@ public class AuthController {
             userService.updateUser(user.getId(), user);
             return "Senha alterada com sucesso!";
         }
-        throw new UserNotFoundException("User " + user.getUsername() + " não foi encontrado!");
+        throw new UserNotFoundException("User " + changePasswordRequestDTO.getUsername() + " não foi encontrado!");
     }
 
     @PostMapping("/register")
