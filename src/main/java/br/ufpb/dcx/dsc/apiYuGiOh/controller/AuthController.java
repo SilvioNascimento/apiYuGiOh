@@ -62,7 +62,7 @@ public class AuthController {
             userService.updateUser(user.getId(), user);
             return "Senha alterada com sucesso!";
         }
-        throw new UserNotFoundException("User " + user.getUsername() + " não foi encontrado!");
+        throw new UserNotFoundException("User " + changePasswordRequestDTO.getUsername() + " não foi encontrado!");
     }
 
     @PostMapping("/register")
