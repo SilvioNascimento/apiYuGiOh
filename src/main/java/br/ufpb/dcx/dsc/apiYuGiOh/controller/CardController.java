@@ -55,30 +55,6 @@ public class CardController {
         return convertToDTO(saved);
     }
 
-//    @PostMapping("/cards/monster")
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public CardMonsterDTO createMonsterCard(@RequestBody CardMonsterDTO cardMonsterDTO) {
-//        Card card = convertToEntity(cardMonsterDTO);
-//        Card saved = cardService.createCard(card);
-//        return (CardMonsterDTO) convertToDTO(saved);
-//    }
-//
-//    @PostMapping("/cards/spell")
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public CardSpellDTO createSpellCard(@RequestBody CardSpellDTO cardSpellDTO) {
-//        Card card = convertToEntity(cardSpellDTO);
-//        Card saved = cardService.createCard(card);
-//        return (CardSpellDTO) convertToDTO(saved);
-//    }
-//
-//    @PostMapping("/cards/trap")
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public CardTrapDTO createTrapCard(@RequestBody CardTrapDTO cardTrapDTO) {
-//        Card card = convertToEntity(cardTrapDTO);
-//        Card saved = cardService.createCard(card);
-//        return (CardTrapDTO) convertToDTO(saved);
-//    }
-
     @PutMapping("/cards/{cardId}")
     public CardDTO updateCard(@PathVariable Long cardId, @Valid @RequestBody CardDTO cardDTO) {
         Card card = convertToEntity(cardDTO);
