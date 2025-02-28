@@ -1,4 +1,4 @@
-package br.ufpb.dcx.dsc.apiYuGiOh.controller;
+package br.ufpb.dcx.dsc.apiYuGiOh.unit_tests.controller;
 
 import br.ufpb.dcx.dsc.apiYuGiOh.ENUM.TipoMonster;
 import br.ufpb.dcx.dsc.apiYuGiOh.ENUM.TipoSpell;

@@ -1,4 +1,4 @@
-package br.ufpb.dcx.dsc.apiYuGiOh.controller;
+package br.ufpb.dcx.dsc.apiYuGiOh.unit_tests.controller;
 
 import br.ufpb.dcx.dsc.apiYuGiOh.dto.DeckDTO;
 import br.ufpb.dcx.dsc.apiYuGiOh.model.Deck;

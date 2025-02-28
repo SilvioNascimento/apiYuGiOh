@@ -1,4 +1,4 @@
-package br.ufpb.dcx.dsc.apiYuGiOh.service;
+package br.ufpb.dcx.dsc.apiYuGiOh.unit_tests.service;
 
 import br.ufpb.dcx.dsc.apiYuGiOh.ENUM.Role;
 import br.ufpb.dcx.dsc.apiYuGiOh.exception.UserAlreadyExistsException;
@@ -7,6 +7,7 @@ import br.ufpb.dcx.dsc.apiYuGiOh.model.Deck;
 import br.ufpb.dcx.dsc.apiYuGiOh.model.User;
 import br.ufpb.dcx.dsc.apiYuGiOh.repository.DeckRepository;
 import br.ufpb.dcx.dsc.apiYuGiOh.repository.UserRepository;
+import br.ufpb.dcx.dsc.apiYuGiOh.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

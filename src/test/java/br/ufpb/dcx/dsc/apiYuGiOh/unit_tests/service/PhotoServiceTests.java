@@ -1,9 +1,10 @@
-package br.ufpb.dcx.dsc.apiYuGiOh.service;
+package br.ufpb.dcx.dsc.apiYuGiOh.unit_tests.service;
 
 import br.ufpb.dcx.dsc.apiYuGiOh.exception.PhotoAlreadyExistsException;
 import br.ufpb.dcx.dsc.apiYuGiOh.exception.PhotoNotFoundException;
 import br.ufpb.dcx.dsc.apiYuGiOh.model.Photo;
 import br.ufpb.dcx.dsc.apiYuGiOh.repository.PhotoRepository;
+import br.ufpb.dcx.dsc.apiYuGiOh.service.PhotoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

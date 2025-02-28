@@ -1,4 +1,4 @@
-package br.ufpb.dcx.dsc.apiYuGiOh.service;
+package br.ufpb.dcx.dsc.apiYuGiOh.unit_tests.service;
 
 import br.ufpb.dcx.dsc.apiYuGiOh.ENUM.TipoSpell;
 import br.ufpb.dcx.dsc.apiYuGiOh.ENUM.TipoTrap;
@@ -8,6 +8,7 @@ import br.ufpb.dcx.dsc.apiYuGiOh.exception.DeckNotFoundException;
 import br.ufpb.dcx.dsc.apiYuGiOh.model.*;
 import br.ufpb.dcx.dsc.apiYuGiOh.repository.CardRepository;
 import br.ufpb.dcx.dsc.apiYuGiOh.repository.DeckRepository;
+import br.ufpb.dcx.dsc.apiYuGiOh.service.DeckService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
