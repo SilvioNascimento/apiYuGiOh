@@ -54,7 +54,7 @@ public class PhotoController {
         return convertToDTO(photoCreated);
     }
 
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/photo/{photoId}")
     public void deletePhoto(@PathVariable Long photoId) {
         photoService.deletePhoto(photoId);
